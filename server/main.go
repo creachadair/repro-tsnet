@@ -51,9 +51,11 @@ func main() {
 
 	lg := log.New(os.Stdout, "[repro] ", 0)
 	var listen func(string, string) (net.Listener, error)
+	listenHost := ""
 	if *hostname == "localhost" {
 		log.Print("Hostname is localhost; bypassing tsnet")
 		listen = net.Listen
+		listenHost = "localhost"
 	} else {
 		log.Printf("Hostname is %q; starting tsnet...", *hostname)
 		srv := &tsnet.Server{
@@ -65,7 +67,7 @@ func main() {
 		defer func() { log.Printf("Server close: %v", srv.Close()) }()
 	}
 
-	lst, err := listen("tcp", fmt.Sprintf("%s:%d", *hostname, *port))
+	lst, err := listen("tcp", fmt.Sprintf("%s:%d", listenHost, *port))
 	if err != nil {
 		log.Fatalf("TS Listen: %v", err)
 	}
