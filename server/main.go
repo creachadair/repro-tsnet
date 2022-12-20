@@ -4,7 +4,7 @@
 //
 // - Start the server on clean state:
 //
-//	rm -fr -- repro.state
+//	rm -fr -- repro.state; mkdir repro.state
 //	TS_AUTHKEY="<insert auth key here>" go run ./server -hostname repro-test -dir repro.state -port 31337
 //
 // Use the hostname "localhost" to bypass tsnet and use the net package.
